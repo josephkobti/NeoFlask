@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 import socketio
 import time 
@@ -7,17 +7,17 @@ sio = socketio.Client()
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return render_template('index.html')
 
 @app.route('/start')
 def start():
     sio.emit('my_message', {'switch': 'on'})
-    return 'started'
+    return render_template('index.html')
 
 @app.route('/stop')
 def stop():
     sio.emit('my_message', {'switch': 'off'})
-    return 'stopped'
+    return render_template('index.html')
 
 @sio.event
 def connect():
