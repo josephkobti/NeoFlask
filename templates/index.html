@@ -1,10 +1,11 @@
-<html>
-    <head>
-        <title>My Neo</title>
-    </head>
-    <body>
-        <button onclick="location.href = '/start';" id="on" class="float-left submit-button" >Turn on</button>
-    </br>
-    <button onclick="location.href = '/stop';" id="off" class="float-left submit-button" >Turn off</button>
-    </body>
-</html>
+{% extends "bootstrap/base.html" %}
+
+{% block title %}My Neo{% endblock %}
+
+{% block content %}
+&nbsp;
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6"><button type="button" class="btn btn-success" style="width: 100%">ON</button></div>
+    <div class="col-xs-6 col-sm-6 col-md-6"><button type="button" class="btn btn-danger" style="width: 100%">OFF</button></div>
+  </div>
+{% endblock %}

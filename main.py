@@ -2,7 +2,8 @@ from flask import Flask, render_template
 app = Flask(__name__)
 import socketio
 import time 
-
+from flask_bootstrap import Bootstrap
+Bootstrap(app)
 sio = socketio.Client()
 
 @app.route('/')
