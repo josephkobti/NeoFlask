@@ -1,16 +1,11 @@
 import threading
-import board
-import neopixel
 import eventlet
 import socketio
+from neo_strip import NeoPixelStrip
 
 # Socket Setup 
 sio = socketio.Server()
 app = socketio.WSGIApp(sio)
-
-# Neo Setup
-ORDER = neopixel.GRBW
-pixels = neopixel.NeoPixel(board.D18, 180, brightness=0.5, auto_write=False, pixel_order=ORDER)
 
 @sio.event
 def connect(sid, environ):
@@ -19,15 +14,16 @@ def connect(sid, environ):
 @sio.event
 def my_message(sid, data):
     if data['switch'] == 'on':
-        pixels.fill((128,128,128,0))
-        pixels.show()
+        print('turned on')
+        neo_strip.turn_on()
     elif data['switch'] == 'off':
-        pixels.fill((0,0,0,0))
-        pixels.show()
+        print('turned off')
+        neo_strip.turn_off()
 
 @sio.event
 def disconnect(sid):
     print('disconnect ', sid)
 
 if __name__ == '__main__':
+    neo_strip = NeoPixelStrip()
     eventlet.wsgi.server(eventlet.listen(('', 5001)), app)
