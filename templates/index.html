@@ -5,7 +5,13 @@
 {% block content %}
 &nbsp;
   <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6"><button type="button" class="btn btn-success" style="width: 100%">ON</button></div>
-    <div class="col-xs-6 col-sm-6 col-md-6"><button type="button" class="btn btn-danger" style="width: 100%">OFF</button></div>
+    {{ if }}
+    {% if status == 'on'%}
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/start';" type="button" class="btn btn-success disabled" style="width: 100%">ON</button></div>
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/stop';" type="button" class="btn btn-danger" style="width: 100%">OFF</button></div>
+    {% else %}
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/start';" type="button" class="btn btn-success" style="width: 100%">ON</button></div>
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/strp';" type="button" class="btn btn-danger disabled" style="width: 100%">OFF</button></div>
+    {% endif %}
   </div>
 {% endblock %}
