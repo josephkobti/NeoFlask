@@ -44,14 +44,8 @@
   </style>
 &nbsp;
   <div class="row">
-    {{ if }}
-    {% if status == 'on'%}
-    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/switch?r=0&g=0&b=0&w=255';" type="button" class="btn btn-success disabled" style="width: 100%">Let there be light</button></div>
-    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/stop';" type="button" class="btn btn-danger" style="width: 100%">I don't want to see shit</button></div>
-    {% else %}
-    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/switch?r=0&g=0&b=0&w=255';" type="button" class="btn btn-success" style="width: 100%">Let there be light</button></div>
-    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/stop';" type="button" class="btn btn-danger disabled" style="width: 100%">I don't want to see shit</button></div>
-    {% endif %}
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="turnOn(this)"type="button" class="btn btn-success" style="width: 100%">Let there be light</button></div>
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="turnOff(this)" type="button" class="btn btn-danger" style="width: 100%">I don't want to see shit</button></div>
   </div>
   &nbsp;
   <div class="container">
@@ -93,6 +87,12 @@
   }
   function switchColor(elmnt, red, green, blue, white) {
     fetch(`/switch?r=${red}&g=${green}&b=${blue}&w=${white}`);
+  }
+  function turnOn() {
+    fetch(`/turn_on`);
+  }
+  function turnOff() {
+    fetch(`/turn_off`);
   }
   </script>
 {% endblock %}

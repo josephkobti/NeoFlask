@@ -15,7 +15,6 @@ brightness = 10
 
 @app.route('/')
 def index():
-    # return render_template('index.html', {'brightness': brightness})
     global brightness
     return render_template('index.html', brightness=brightness, status = status)
 
@@ -28,14 +27,21 @@ def switch():
     blue = request.args.get('b')
     sio.emit('switch', {'status': 'on', 'red': red, 'green': green, 'blue': blue, 'white' : white})
     status = 'on'
-    return render_template('index.html', status = status, brightness=brightness)
+    return {"msg": "Changed Successfully"}, 200
 
 
-@app.route('/stop')
+@app.route('/turn_off')
 def stop():
     sio.emit('switch', {'status': 'off'})
     status = 'off'
-    return render_template('index.html', status = status, brightness=brightness)
+    return {"msg": "Changed Successfully"}, 200
+
+@app.route('/turn_on')
+def start():
+    sio.emit('switch', {'status': 'on', 'red': red, 'green': green, 'blue': blue, 'white' : white})
+    sio.emit('change_brightness', {'status': 'on', 'red': red, 'green': green, 'blue': blue, 'white' : white, 'b' : brightness})
+    status = 'on'
+    return {"msg": "Changed Successfully"}, 200
 
 @app.route('/brightness')
 def change_brightness():
