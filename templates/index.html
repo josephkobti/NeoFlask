@@ -5,7 +5,7 @@
 {% block content %}
 <style>
   .slidecontainer {
-    width: 75%;
+    width: 100%;
   }
   
   .slider {
@@ -67,15 +67,16 @@
     </div>
     <div class="row">
         <div class="btn col-xs-4 col-sm-6 col-md-4" style="background-color:#ecff00;" onclick="switchColor(this, 255, 140, 0, 0)" type="button">amarilla</div>
-        <div class="btn col-xs-4 col-sm-6 col-md-4" style="background-color:#752375; color: beige;" onclick="switchColor(this, 117, 35, 117, 0)" type="button">hungry</div>
+        <div class="btn col-xs-4 col-sm-6 col-md-4" style="background-color:#752375; color: beige;" onclick="switchColor(this, 75, 0, 130, 0)" type="button">hungry</div>
         <div class="btn col-xs-4 col-sm-6 col-md-4" style="background-color:#00bbbb;"  onclick="switchColor(this, 0, 187, 187, 0)" type="button">dream blue</div>
     </div>
 </div>
 &nbsp;
-<div class="slidecontainer">
-  <input type="range" min="1" max="100" value="30" class="slider" id="myRange">
+<div class="container">
+  <div class="slidecontainer">
+    <input type="range" min="1" max="100" value="30" class="slider" id="myRange">
+  </div>
 </div>
-
 {% endblock %}
 
 {% block scripts %}
