@@ -82,7 +82,6 @@
   
   var slider = document.getElementById("myRange");
   slider.oninput = function() {
-    console.log(this.value);
     fetch('/brightness?b=' + this.value);
   }
   function switchColor(elmnt, red, green, blue, white) {

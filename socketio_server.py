@@ -24,7 +24,7 @@ def change_brightness(sid, data):
     brightness = float(brightness)
     brightness = brightness / 100
     print(brightness)
-    neo_strip.change_brightness(data['red'], data['green'], data['blue'], data['white'], brightness)
+    neo_strip.change_brightness(brightness)
 
 
 @sio.event

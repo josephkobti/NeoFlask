@@ -39,7 +39,7 @@ def stop():
 @app.route('/turn_on')
 def start():
     sio.emit('switch', {'status': 'on', 'red': red, 'green': green, 'blue': blue, 'white' : white})
-    sio.emit('change_brightness', {'status': 'on', 'red': red, 'green': green, 'blue': blue, 'white' : white, 'b' : brightness})
+    sio.emit('change_brightness', {'b' : brightness})
     status = 'on'
     return {"msg": "Changed Successfully"}, 200
 
@@ -49,7 +49,7 @@ def change_brightness():
     global brightness
     brightness = request.args.get('b')
     print(brightness)
-    sio.emit('change_brightness', {'status': 'on', 'red': red, 'green': green, 'blue': blue, 'white' : white, 'b' : brightness})
+    sio.emit('change_brightness', {'b' : brightness})
     return {"msg": "Changed Successfully"}, 200
     
 

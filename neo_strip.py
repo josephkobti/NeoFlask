@@ -16,7 +16,7 @@ class NeoPixelStrip:
         self.pixels.fill((0,0,0,0))
         self.pixels.show()
     
-    def change_brightness(self, red, green, blue, white, brightness):
+    def change_brightness(self, brightness):
         self.pixels.brightness = brightness
 
 if __name__ == '__main__':
