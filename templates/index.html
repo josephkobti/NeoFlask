@@ -3,15 +3,90 @@
 {% block title %}My Neo{% endblock %}
 
 {% block content %}
+<style>
+  .slidecontainer {
+    width: 75%;
+  }
+  
+  .slider {
+    -webkit-appearance: none;
+    width: 75%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+  }
+  </style>
 &nbsp;
   <div class="row">
     {{ if }}
     {% if status == 'on'%}
-    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/start';" type="button" class="btn btn-success disabled" style="width: 100%">ON</button></div>
-    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/stop';" type="button" class="btn btn-danger" style="width: 100%">OFF</button></div>
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/switch?r=0&g=0&b=0&w=255';" type="button" class="btn btn-success disabled" style="width: 100%">Let there be light</button></div>
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/stop';" type="button" class="btn btn-danger" style="width: 100%">I don't want to see shit</button></div>
     {% else %}
-    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/start';" type="button" class="btn btn-success" style="width: 100%">ON</button></div>
-    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/strp';" type="button" class="btn btn-danger disabled" style="width: 100%">OFF</button></div>
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/switch?r=0&g=0&b=0&w=255';" type="button" class="btn btn-success" style="width: 100%">Let there be light</button></div>
+    <div class="col-xs-6 col-sm-6 col-md-6"><button onclick="location.href = '/stop';" type="button" class="btn btn-danger disabled" style="width: 100%">I don't want to see shit</button></div>
     {% endif %}
   </div>
+  &nbsp;
+  <div class="container">
+    <div class="row">
+      <div class="btn col-xs-12 col-sm-12 col-md-12" style="background-color:#FFFFFF; border-color: #2196F3;" onclick="location.href='/switch?r=0&g=0&b=0&w=255'" type="button">bright white</div>
+    </div>
+    <div class="row">
+        <div class="btn col-xs-4 col-sm-4 col-md-4" style="background-color:#008000;" onclick="location.href='/switch?r=0&g=255&b=0&w=0'" type="button">mojito</div>
+        <div class="btn col-xs-4 col-sm-4 col-md-4" style="background-color:#0000ff; color: beige;" onclick="location.href='/switch?r=0&g=0&b=255&w=0'" type="button">blues</div>
+        <div class="btn col-xs-4 col-sm-4 col-md-4" style="background-color:#ff0000;" onclick="location.href='/switch?r=255&g=0&b=0&w=0'" type="button">are you angry?</div>
+    </div>
+    <div class="row">
+        <div class="btn col-xs-4 col-sm-6 col-md-4" style="background-color:#ecff00;" onclick="location.href='/switch?r=236&g=255&b=0&w=0';" type="button">amarilla</div>
+        <div class="btn col-xs-4 col-sm-6 col-md-4" style="background-color:#752375; color: beige;" onclick="location.href='/switch?r=117&g=35&b=117&w=0';" type="button">LGBT friendly</div>
+        <div class="btn col-xs-4 col-sm-6 col-md-4" style="background-color:#00bbbb;" onclick="location.href='/switch?r=0&g=187&b=187&w=0';" type="button">dream blue</div>
+    </div>
+</div>
+&nbsp;
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="30" class="slider" id="myRange">
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(){
+    let brightness = '{{ brightness }}'; 
+	  document.getElementById("myRange").value = brightness;
+  });
+  
+  var slider = document.getElementById("myRange");
+  slider.oninput = function() {
+    console.log(this.value);
+    fetch('/brightness?b=' + this.value);
+  }
+  </script>
 {% endblock %}

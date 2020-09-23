@@ -1,16 +1,24 @@
 import board
 import neopixel
+import time 
 
 class NeoPixelStrip:
     def __init__(self):
         ORDER = neopixel.GRBW
-        self.brightness = 0.5
-        self.pixels = neopixel.NeoPixel(board.D18, 180, brightness=self.brightness, auto_write=False, pixel_order=ORDER)
+        self.brightness = 0.05
+        self.pixels = neopixel.NeoPixel(board.D18, 180, brightness=self.brightness, auto_write=True, pixel_order=ORDER)
     
-    def turn_on(self):
-        self.pixels.fill((128,128,128,0))
+    def switch(self, red, green, blue, white):
+        self.pixels.fill((int(red),int(green),int(blue),int(white)))
         self.pixels.show()
 
     def turn_off(self):
         self.pixels.fill((0,0,0,0))
         self.pixels.show()
+    
+    def change_brightness(self, red, green, blue, white, brightness):
+        self.pixels.brightness = brightness
+
+if __name__ == '__main__':
+    neo_strip = NeoPixelStrip()
+    neo_strip.switch(100, 150, 0, 10)

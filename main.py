@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 import socketio
 import time 
@@ -6,19 +6,46 @@ from flask_bootstrap import Bootstrap
 Bootstrap(app)
 sio = socketio.Client()
 
-@app.route('/')
-def hello_world():
-    return render_template('index.html')
+status = 'off'
+red = '255'
+green = '255'
+blue = '255'
+white = '255'
+brightness = 10
 
-@app.route('/start')
-def start():
-    sio.emit('my_message', {'switch': 'on'})
-    return render_template('index.html')
+@app.route('/')
+def index():
+    # return render_template('index.html', {'brightness': brightness})
+    global brightness
+    return render_template('index.html', brightness=brightness)
+
+@app.route('/switch')
+def switch():
+    global white, red, green, blue
+    white = request.args.get('w')
+    red = request.args.get('r')
+    green = request.args.get('g')
+    blue = request.args.get('b')
+    sio.emit('switch', {'status': 'on', 'red': red, 'green': green, 'blue': blue, 'white' : white})
+    status = 'on'
+    return render_template('index.html', status = status)
+
 
 @app.route('/stop')
 def stop():
-    sio.emit('my_message', {'switch': 'off'})
-    return render_template('index.html')
+    sio.emit('switch', {'status': 'off'})
+    status = 'off'
+    return render_template('index.html', status = status)
+
+@app.route('/brightness')
+def change_brightness():
+    print(request.args.get('b'))
+    global brightness
+    brightness = request.args.get('b')
+    print(brightness)
+    sio.emit('change_brightness', {'status': 'on', 'red': red, 'green': green, 'blue': blue, 'white' : white, 'b' : brightness})
+    return {"msg": "Changed Successfully"}, 200
+    
 
 @sio.event
 def connect():
@@ -27,10 +54,11 @@ def connect():
 @sio.event
 def my_message(data):
     print('message received with ', data)
+    sio.emit('change_brightness', {'b': request.args.get('b')})
     sio.emit('my response', {'response': 'my response'})
 
 @sio.event
 def disconnect():
     print('disconnected from server')
 
-sio.connect('http://localhost:5001')
+sio.connect('http://localhost:5002')
