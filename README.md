@@ -1,7 +1,10 @@
+This repository has simple server/client apps that can be ran on a raspberry pi to control a neo led strip. 
+The socketio server controls the led strip and receives commands from the django client server that hosts a web page with some options to turn the light on/off or choose a color. 
+
+**<span style="background-color:yellow">More commands and featuers to be added soon</span>**
+
 # Setup: 
-The socketio server and the socketio client in the flask app talk over the same port. 
-* For the server: write the PORT_ID in `eventlet.wsgi.server(eventlet.listen(('', PORT_ID)), app)` in socketio_server.py. for example 5002
-* For the client: write the same PORT_ID in `sio.connect('http://localhost:PORT_ID')`
+The socketio server and the socketio client in the flask app talk over the same port which should be configuered in `settings.yaml`
 
 * The `neo_strip.py` file has the class for the neo strip, the file `socketio_server.py` instantiates the class with the proper number of leds which also can be configuered in `settings.yaml`.
 
@@ -12,8 +15,8 @@ The socketio server and the socketio client in the flask app talk over the same 
 
 * To run the front end flask app: 
   
-`export FLASK_APP=/home/pi/Documents/projects/NeoFlask/main.py`
-`python3 -m flask run --host=0.0.0.0`
+    `export FLASK_APP=/home/pi/Documents/projects/NeoFlask/main.py`
+    `python3 -m flask run --host=0.0.0.0`
 this app can be accessed from local network using the ip of raspbery pi plus the port at the end, as in `192.168.188.81:5000`
 
 # Running the apps on start-up: 
