@@ -2,7 +2,7 @@ import threading
 import eventlet
 import socketio
 from neo_strip import NeoPixelStrip
-
+import yaml
 # Socket Setup 
 sio = socketio.Server()
 app = socketio.WSGIApp(sio)
@@ -32,5 +32,10 @@ def disconnect(sid):
     print('disconnect ', sid)
 
 if __name__ == '__main__':
-    neo_strip = NeoPixelStrip()
-    eventlet.wsgi.server(eventlet.listen(('', 5002)), app)
+    with open('config/settings.yaml') as f:
+        settings = yaml.full_load(f)
+
+    LED_COUNT = settings['LED_COUNT']     
+    port = settings['PORT']  
+    neo_strip = NeoPixelStrip(LED_COUNT)
+    eventlet.wsgi.server(eventlet.listen(('', port)), app)

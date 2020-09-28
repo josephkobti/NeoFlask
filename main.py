@@ -3,6 +3,8 @@ app = Flask(__name__)
 import socketio
 import time 
 from flask_bootstrap import Bootstrap
+import yaml 
+
 Bootstrap(app)
 sio = socketio.Client()
 
@@ -12,6 +14,11 @@ green = '255'
 blue = '255'
 white = '255'
 brightness = 10
+
+with open('config/settings.yaml') as f:
+    settings = yaml.full_load(f)
+
+port = settings['PORT']  
 
 @app.route('/')
 def index():
@@ -67,4 +74,4 @@ def my_message(data):
 def disconnect():
     print('disconnected from server')
 
-sio.connect('http://localhost:5002')
+sio.connect('http://localhost:%s' % str(port))

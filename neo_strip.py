@@ -1,12 +1,11 @@
 import board
 import neopixel
 import time 
-
 class NeoPixelStrip:
-    def __init__(self):
+    def __init__(self, LED_COUNT):
         ORDER = neopixel.GRBW
         self.brightness = 0.05
-        self.pixels = neopixel.NeoPixel(board.D18, 180, brightness=self.brightness, auto_write=True, pixel_order=ORDER)
+        self.pixels = neopixel.NeoPixel(board.D18, LED_COUNT, brightness=self.brightness, auto_write=True, pixel_order=ORDER)
     
     def switch(self, red, green, blue, white):
         self.pixels.fill((int(red),int(green),int(blue),int(white)))
