@@ -3,8 +3,8 @@ Description="flask-app"
 After=network.target
 
 [Service]
-User=pi
-Environment='FLASK_APP=/home/pi/Documents/projects/NeoFlask/main.py'
+User=
+Environment='FLASK_APP=PATH_TO/main.py'
 ExecStart=/usr/local/bin/python3 -m flask run --host=0.0.0.0
 Restart=always
 

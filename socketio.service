@@ -3,7 +3,7 @@ Description=Blink my LED
 After=multi-user.target
 
 [Service]
-ExecStart=/usr/local/bin/python3 /home/pi/Documents/projects/NeoFlask/socketio_server.py
+ExecStart=/usr/local/bin/python3 PATH_TO/socketio_server.py
 
 [Install]
 WantedBy=multi-user.target
